@@ -1,0 +1,28 @@
+---
+- name: Install git if required
+  ansible.builtin.package:
+    name: git
+    state: present
+
+- name: Get the source code
+  ansible.builtin.git:
+    repo: https://github.com/vulhub/vulhub
+    dest: "{{ vulhub_install_path }}"
+    version: "{{ vulhub_branch }}"
+    single_branch: true
+
+- name: Stop any existing vulhub docker containers
+  ansible.builtin.shell: |
+    docker ps --filter "label=com.docker.compose.project.working_dir" --format {% raw %}"{{.ID}} {{.Labels}}"{% endraw %} | \
+     grep 'com.docker.compose.project.config_files={{ vulhub_install_path }}' | cut -d ' ' -f 1 | xargs -r docker stop
+
+# community.docker.docker_compose has too many dependancies
+- name: Start the vulhub environments (shell)
+  ansible.builtin.shell:
+    cmd: |
+      docker compose build
+      docker compose up -d
+    chdir: "{{ vulhub_install_path }}/{{ vulhub_env }}"
+  loop: "{{ vulhub_envs }}"
+  loop_control:
+    loop_var: vulhub_env

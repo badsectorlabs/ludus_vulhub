@@ -1,0 +1,4 @@
+---
+vulhub_install_path: /opt/vulhub
+vulhub_branch: master
+vulhub_envs:

@@ -1,0 +1,39 @@
+---
+dependencies:
+  - role: geerlingguy.docker
+    version: "7.1.0" # ranges are not supported, newer versions are probably fine
+
+galaxy_info:
+  role_name: vulhub
+  author: badsectorlabs
+  description: Run Vulhub environments on a Linux system
+  company: Bad Sector Labs
+  license: GPLv3
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+    - name: Alpine
+      version:
+        - all
+    - name: ArchLinux
+      versions:
+        - all
+    - name: Kali
+      versions:
+        - "2023"
+
+  galaxy_tags:
+    - vulnerable
+    - docker
