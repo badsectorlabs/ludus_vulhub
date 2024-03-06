@@ -4,7 +4,7 @@ dependencies:
     version: "7.1.0" # ranges are not supported, newer versions are probably fine
 
 galaxy_info:
-  role_name: vulhub
+  role_name: ludus_vulhub
   author: badsectorlabs
   description: Run Vulhub environments on a Linux system
   company: Bad Sector Labs
