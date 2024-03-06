@@ -13,6 +13,7 @@ None.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
+    vulhub_git_url: https://github.com/vulhub/vulhub
     vulhub_install_path: /opt/vulhub
     vulhub_branch: master
     vulhub_envs:
@@ -26,7 +27,7 @@ Available variables are listed below, along with default values (see `defaults/m
 ```yaml
 - hosts: vulhub_hosts
   roles:
-    - badsectorlabs.vulhub
+    - badsectorlabs.ludus_vulhub
   vars:
     vulhub_envs:
         - confulence/CVE-2023-22527
@@ -49,7 +50,7 @@ ludus:
       snapshot: false
       block_internet: false
     roles:
-      - badsectorlabs.vulhub
+      - badsectorlabs.ludus_vulhub
     role_vars:
       vulhub_envs:
         - confulence/CVE-2023-22527
@@ -59,7 +60,7 @@ ludus:
 ## Ludus setup
 
 ```
-ludus ansible roles add badsectorlabs.vulhub
+ludus ansible roles add badsectorlabs.ludus_vulhub
 ludus range config get > config.yml
 # Edit config to add the role to the VMs you wish to install vulhub on and define your desired vulhub_envs (see above)
 ludus range config set -f config.yml

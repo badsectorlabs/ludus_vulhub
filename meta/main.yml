@@ -33,6 +33,7 @@ galaxy_info:
     - name: Kali
       versions:
         - "2023"
+        - "2024"
 
   galaxy_tags:
     - vulnerable

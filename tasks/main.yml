@@ -6,7 +6,7 @@
 
 - name: Get the source code
   ansible.builtin.git:
-    repo: https://github.com/vulhub/vulhub
+    repo: "{{ vulhub_git_url }}"
     dest: "{{ vulhub_install_path }}"
     version: "{{ vulhub_branch }}"
     single_branch: true
@@ -16,7 +16,7 @@
     docker ps --filter "label=com.docker.compose.project.working_dir" --format {% raw %}"{{.ID}} {{.Labels}}"{% endraw %} | \
      grep 'com.docker.compose.project.config_files={{ vulhub_install_path }}' | cut -d ' ' -f 1 | xargs -r docker stop
 
-# community.docker.docker_compose has too many dependancies
+# community.docker.docker_compose has too many dependencies
 - name: Start the vulhub environments (shell)
   ansible.builtin.shell:
     cmd: |
