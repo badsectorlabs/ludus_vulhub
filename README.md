@@ -30,8 +30,8 @@ Available variables are listed below, along with default values (see `defaults/m
     - badsectorlabs.ludus_vulhub
   vars:
     vulhub_envs:
-        - confulence/CVE-2023-22527
-        - airflow/CVE-2020-11978
+      - confluence/CVE-2023-22527
+      - airflow/CVE-2020-11978
 ```
 
 ## Example Ludus Range Config
@@ -53,7 +53,7 @@ ludus:
       - badsectorlabs.ludus_vulhub
     role_vars:
       vulhub_envs:
-        - confulence/CVE-2023-22527
+        - confluence/CVE-2023-22527
         - airflow/CVE-2020-11978
 ```
 
