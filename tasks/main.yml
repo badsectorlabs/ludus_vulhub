@@ -4,6 +4,20 @@
     name: git
     state: present
 
+#This hardcodes the architecture and version -- not the way I want to do this
+- name: Download yq binary
+  get_url:
+    url: "https://github.com/mikefarah/yq/releases/download/v4.45.4/yq_linux_amd64"
+    dest: "/usr/local/bin/yq"
+    mode: "0755"
+
+- name: Move yq to /usr/bin
+  command: mv /usr/local/bin/yq /usr/bin/yq
+  args:
+    creates: /usr/bin/yq
+
+
+
 - name: Get the source code
   ansible.builtin.git:
     repo: "{{ vulhub_git_url }}"
@@ -17,9 +31,11 @@
      grep 'com.docker.compose.project.config_files={{ vulhub_install_path }}' | cut -d ' ' -f 1 | xargs -r docker stop
 
 # community.docker.docker_compose has too many dependencies
+# Added changes to docker-compose.yml to make it persistent and use host networking
 - name: Start the vulhub environments (shell)
   ansible.builtin.shell:
     cmd: |
+      yq eval '(.services[] |= (del(.ports) | . + {"restart": "always", "network_mode": "host", "init": true}))' -i {{ vulhub_install_path }}/{{ vulhub_env }}/docker-compose.yml
       docker compose build
       docker compose up -d
     chdir: "{{ vulhub_install_path }}/{{ vulhub_env }}"
