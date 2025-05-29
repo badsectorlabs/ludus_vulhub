@@ -16,8 +16,6 @@
   args:
     creates: /usr/bin/yq
 
-
-
 - name: Get the source code
   ansible.builtin.git:
     repo: "{{ vulhub_git_url }}"
