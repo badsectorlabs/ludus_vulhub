@@ -3,3 +3,4 @@ vulhub_git_url: https://github.com/vulhub/vulhub
 vulhub_install_path: /opt/vulhub
 vulhub_branch: master
 vulhub_envs:
+vulhub_persistent: true
