@@ -17,6 +17,7 @@ Available variables are listed below, along with default values (see `defaults/m
     vulhub_install_path: /opt/vulhub
     vulhub_branch: master
     vulhub_envs:
+    vulhub_persistent: true
 
 ## Dependencies
 
