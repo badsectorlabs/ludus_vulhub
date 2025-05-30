@@ -44,9 +44,8 @@
 - name: Start the vulhub environments (shell) - persistent
   ansible.builtin.shell:
     cmd: |
-      yq eval '(.services[] |= (del(.ports))' -i {{ vulhub_install_path }}/{{ vulhub_env }}/docker-compose.yml
-      PERSISTENCE_FILTER='(.services[] |= . + {"restart": "always", "network_mode": "host", "init": true}))'
-      yq eval "$PERSISTENCE_FILTER" -i {{ vulhub_install_path }}/{{ vulhub_env }}/docker-compose.yml
+      yq eval '(.services[] |= (del(.ports)))' -i {{ vulhub_install_path }}/{{ vulhub_env }}/docker-compose.yml
+      yq eval '(.services[] |= . + {"restart": "always", "network_mode": "host"})' -i {{ vulhub_install_path }}/{{ vulhub_env }}/docker-compose.yml
       docker compose build
       docker compose up -d
     chdir: "{{ vulhub_install_path }}/{{ vulhub_env }}"
