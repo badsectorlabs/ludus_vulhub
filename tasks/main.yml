@@ -26,14 +26,36 @@
     dest: "/usr/bin/yq"
     mode: "0755"
 
+
+- name: Ensure vulhub install path exists
+  ansible.builtin.file:
+    path: "{{ vulhub_install_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Copy selected vulhub environments from role files (controller -> remote)
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/{{ item }}/"
+    dest: "{{ vulhub_install_path }}/{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: '0755'
+    remote_src: no
+    force: true
+  loop: "{{ vulhub_envs }}"
+  loop_control:
+    loop_var: item
+  when: use_local_vulhub_files
+
 # we add a force because we end up modifying some files if we go the persistent route
-- name: Get the source code
+- name: Get the source code from git 
   ansible.builtin.git:
     repo: "{{ vulhub_git_url }}"
     dest: "{{ vulhub_install_path }}"
     version: "{{ vulhub_branch }}"
     single_branch: true
     force: true
+  when: not use_local_vulhub_files
 
 - name: Stop any existing vulhub docker containers
   ansible.builtin.shell: |

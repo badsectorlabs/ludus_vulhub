@@ -48,4 +48,8 @@ Temporary Items
 .history
 .ionide
 
+files/**
+!files/
+!files/README.md
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,ansible

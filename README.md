@@ -18,6 +18,8 @@ Available variables are listed below, along with default values (see `defaults/m
     vulhub_branch: master
     vulhub_envs:
     vulhub_persistent: true
+    use_local_vulhub_files: false
+    local_vulhub_files_path: "{{ playbook_dir | default(omit) }}/roles/ludus_vulhub/files"
 
 ## Dependencies
 
